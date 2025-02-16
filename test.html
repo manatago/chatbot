@@ -22,7 +22,7 @@
             return response.text();
         }).then(data => {
             //dataはHTML形式なので、その中のpreタグの中身を取得
-            const text = data.match(/<pre>(.*?)<\/pre>/s)[1];
+            const text = data.match(/<pre[^>]*>([\s\S]*?)<\/pre>/)[1].trim();
             console.log(text);
         });
     
