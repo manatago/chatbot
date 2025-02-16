@@ -62,8 +62,9 @@ async function sendMessage() {
     userInput.style.height = 'auto';
 
     try {
-        // 送信ボタンを無効化
+        // 送信ボタンを無効化とローディング表示
         sendButton.disabled = true;
+        document.querySelector('.loading-overlay').classList.add('active');
 
         // APIにリクエストを送信
         const response = await fetch(API_URL, {
@@ -90,8 +91,9 @@ async function sendMessage() {
         console.error('Error:', error);
         appendMessage('申し訳ありません。エラーが発生しました。', 'ai');
     } finally {
-        // 送信ボタンを再有効化
+        // 送信ボタンを再有効化とローディング非表示
         sendButton.disabled = false;
+        document.querySelector('.loading-overlay').classList.remove('active');
     }
 }
 
