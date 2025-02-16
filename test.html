@@ -18,7 +18,8 @@
             },
             body: 'prompt=こんにちは',
         }).then(response => {
-            return response.json();
+            //responseはHTML形式なので、その中身を取得
+            return response.text();
         }).then(data => {
             //dataはHTML形式なので、その中のpreタグの中身を取得
             const text = data.html.match(/<pre>(.*?)<\/pre>/)[1];
