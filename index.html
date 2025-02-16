@@ -6,6 +6,7 @@
     <title>AIチャットボット</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
     <div class="chat-container">
@@ -26,6 +27,10 @@
         </div>
 
         <div class="chat-controls">
+            <div class="temperature-control">
+                <label for="temperature">Temperature: <span id="temperature-value">0.7</span></label>
+                <input type="range" id="temperature" min="0" max="1" step="0.1" value="0.7">
+            </div>
             <div class="input-container">
                 <textarea id="user-input" placeholder="メッセージを入力してください..." rows="1"></textarea>
                 <button id="send-button" class="send-button">
