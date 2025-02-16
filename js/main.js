@@ -18,21 +18,7 @@ setInterval(() => {
 }, MESSAGE_RESET_INTERVAL);
 
 // API設定
-const OPENAI_API_KEY = 'YOUR_API_KEY_HERE'; // ここにAPIキーを設定
-const API_URL = 'https://api.openai.com/v1/chat/completions';
-const SYSTEM_PROMPT_URL = 'https://api.example.com/chatbot/system-prompt.txt'; // システムプロンプトのURL
-
-// システムプロンプトの取得
-let systemPrompt = '';
-fetch(SYSTEM_PROMPT_URL)
-    .then(response => response.text())
-    .then(text => {
-        systemPrompt = text;
-    })
-    .catch(error => {
-        console.error('システムプロンプトの読み込みに失敗しました:', error);
-        systemPrompt = 'あなたは親切なAIアシスタントです。'; // デフォルトのプロンプト
-    });
+const API_URL = 'https://kyozai.net/rag/index.php';
 
 // Temperature値の更新
 temperatureSlider.addEventListener('input', (e) => {
@@ -86,62 +72,26 @@ async function sendMessage() {
         // 送信ボタンを無効化
         sendButton.disabled = true;
 
-        // OpenAI APIにリクエスト
+        // APIにリクエストを送信
         const response = await fetch(API_URL, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${OPENAI_API_KEY}`
+                'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: JSON.stringify({
-                model: 'gpt-3.5-turbo',
-                messages: [
-                    {
-                        role: 'system',
-                        content: systemPrompt
-                    },
-                    {
-                        role: 'user',
-                        content: message
-                    }
-                ],
-                temperature: parseFloat(temperatureSlider.value),
-                stream: true
-            })
+            body: `prompt=${encodeURIComponent(message)}`
         });
 
-        // ストリーミングレスポンスの処理
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder();
-        let aiResponse = '';
-
-        // AIメッセージの表示準備
-        const aiMessageElement = appendMessage('', 'ai');
-        const aiMessageContent = aiMessageElement.querySelector('.message-content p');
-
-        while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
-
-            const chunk = decoder.decode(value);
-            const lines = chunk.split('\n');
-            
-            for (const line of lines) {
-                if (line.startsWith('data: ') && line !== 'data: [DONE]') {
-                    try {
-                        const data = JSON.parse(line.slice(6));
-                        const content = data.choices[0].delta.content;
-                        if (content) {
-                            aiResponse += content;
-                            aiMessageContent.textContent = aiResponse;
-                            chatMessages.scrollTop = chatMessages.scrollHeight;
-                        }
-                    } catch (e) {
-                        console.error('Parsing error:', e);
-                    }
-                }
-            }
+        // レスポンスからpreタグの内容を取得
+        const html = await response.text();
+        const match = html.match(/<pre[^>]*>([\s\S]*?)<\/pre>/);
+        
+        if (!match) {
+            throw new Error('レスポンスの形式が不正です');
         }
+
+        const aiResponse = match[1].trim();
+        // AIメッセージの表示
+        appendMessage(aiResponse, 'ai');
     } catch (error) {
         console.error('Error:', error);
         appendMessage('申し訳ありません。エラーが発生しました。', 'ai');
