@@ -2,8 +2,6 @@
 const chatMessages = document.getElementById('chat-messages');
 const userInput = document.getElementById('user-input');
 const sendButton = document.getElementById('send-button');
-const temperatureSlider = document.getElementById('temperature');
-const temperatureValue = document.getElementById('temperature-value');
 
 // 送信制限の設定
 const MAX_MESSAGE_LENGTH = 300;  // 最大文字数
@@ -19,11 +17,6 @@ setInterval(() => {
 
 // API設定
 const API_URL = 'https://kyozai.net/rag/index.php';
-
-// Temperature値の更新
-temperatureSlider.addEventListener('input', (e) => {
-    temperatureValue.textContent = e.target.value;
-});
 
 // テキストエリアの文字数カウンターを追加
 const counterDiv = document.createElement('div');
@@ -92,6 +85,7 @@ async function sendMessage() {
         const aiResponse = match[1].trim();
         // AIメッセージの表示
         appendMessage(aiResponse, 'ai');
+
     } catch (error) {
         console.error('Error:', error);
         appendMessage('申し訳ありません。エラーが発生しました。', 'ai');
