@@ -2,6 +2,13 @@
 const chatMessages = document.getElementById('chat-messages');
 const userInput = document.getElementById('user-input');
 const sendButton = document.getElementById('send-button');
+const temperatureSlider = document.getElementById('temperature');
+const temperatureValue = document.getElementById('temperature-value');
+
+// Temperature値の更新
+temperatureSlider.addEventListener('input', (e) => {
+    temperatureValue.textContent = e.target.value;
+});
 
 // 送信制限の設定
 const MAX_MESSAGE_LENGTH = 300;  // 最大文字数
@@ -111,9 +118,14 @@ function appendMessage(content, type) {
 
     const messageContent = document.createElement('div');
     messageContent.className = 'message-content';
-    const p = document.createElement('p');
-    p.textContent = content;
-    messageContent.appendChild(p);
+    if (type === 'ai') {
+        // マークダウンをHTMLに変換
+        messageContent.innerHTML = marked.parse(content);
+    } else {
+        const p = document.createElement('p');
+        p.textContent = content;
+        messageContent.appendChild(p);
+    }
 
     if (type === 'user') {
         messageDiv.appendChild(messageContent);

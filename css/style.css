@@ -97,6 +97,80 @@ body {
     position: relative;
 }
 
+/* マークダウンコンテンツのスタイル */
+.message-content h1,
+.message-content h2,
+.message-content h3 {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+.message-content h1 { font-size: 1.5em; }
+.message-content h2 { font-size: 1.3em; }
+.message-content h3 { font-size: 1.1em; }
+
+.message-content ul,
+.message-content ol {
+    margin: 0.5em 0;
+    padding-left: 1.5em;
+}
+
+.message-content p {
+    margin: 0.5em 0;
+}
+
+.message-content code {
+    background-color: #e8e8e8;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-family: monospace;
+    font-size: 0.9em;
+}
+
+.message-content pre {
+    background-color: #f8f8f8;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin: 0.5em 0;
+}
+
+.message-content pre code {
+    background-color: transparent;
+    padding: 0;
+}
+
+.message-content blockquote {
+    border-left: 4px solid #007bff;
+    margin: 0.5em 0;
+    padding: 0.5em 1em;
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+.message-content img {
+    max-width: 100%;
+    height: auto;
+    margin: 0.5em 0;
+    border-radius: 5px;
+}
+
+.message-content table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0.5em 0;
+}
+
+.message-content th,
+.message-content td {
+    border: 1px solid #ddd;
+    padding: 0.5em;
+    text-align: left;
+}
+
+.message-content th {
+    background-color: #f0f0f0;
+}
+
 .ai-message .message-content {
     background-color: #f0f2f5;
 }
