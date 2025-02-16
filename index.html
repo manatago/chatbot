@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIチャットボット</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>AIアシスタント</h1>
+        </div>
+        
+        <div class="chat-messages" id="chat-messages">
+            <!-- 初期メッセージ -->
+            <div class="message ai-message">
+                <div class="avatar">
+                    <img src="assets/robot-avatar.png" alt="AI">
+                </div>
+                <div class="message-content">
+                    <p>こんにちは！何かお手伝いできることはありますか？</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-controls">
+            <div class="temperature-control">
+                <label for="temperature">Temperature: <span id="temperature-value">0.7</span></label>
+                <input type="range" id="temperature" min="0" max="1" step="0.1" value="0.7">
+            </div>
+            
+            <div class="input-container">
+                <textarea id="user-input" placeholder="メッセージを入力してください..." rows="1"></textarea>
+                <button id="send-button" class="send-button">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>
