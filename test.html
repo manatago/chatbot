@@ -16,13 +16,13 @@
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: 'prompt=こんにちは',
+            body: 'prompt=花について教えて',
         }).then(response => {
             //responseはHTML形式なので、その中身を取得
             return response.text();
         }).then(data => {
             //dataはHTML形式なので、その中のpreタグの中身を取得
-            const text = data.html.match(/<pre>(.*?)<\/pre>/)[1];
+            const text = data.html.match(/<pre(.*?)<\/pre>/)[1];
             console.log(text);
         });
     
